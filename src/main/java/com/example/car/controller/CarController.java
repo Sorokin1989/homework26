@@ -1,0 +1,73 @@
+package com.example.car.controller;
+
+import com.example.car.entity.Car;
+import com.example.car.repository.CarRepository;
+import net.datafaker.Faker;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/car")
+public class CarController {
+
+    @Autowired
+    Faker faker;
+
+    @Autowired
+    CarRepository carRepository;
+
+    @PostMapping("/create")
+    public String create(Model model,Car car){
+        carRepository.save(car);
+        return "";
+    }
+
+    @GetMapping("/addAll")
+    public String addAll(){
+        if (carRepository.count()==0){
+            add_10_cars();
+        }
+       return "";
+    }
+
+    @GetMapping("/add")
+    public String add(Model model){
+        model.addAttribute("title","Create page");
+        model.addAttribute("car",new Car());
+        return "pages/car/create";
+    }
+
+
+
+
+    public void add_10_cars(){
+
+        for (int i = 0; i < 10; i++) {
+        Car car=new Car();
+
+        String brand=faker.vehicle().make();
+        String model=faker.vehicle().model();
+        Integer year=faker.number().numberBetween(2000,2025);
+
+        car.setBrand(brand);
+        car.setModel(model);
+        car.setYear(year);
+
+        carRepository.save(car);
+        }
+
+
+
+
+
+
+
+
+    }
+
+
+}
