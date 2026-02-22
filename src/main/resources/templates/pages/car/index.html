@@ -3,9 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
+<a th:class="btn-a" th:href="@{/car/deleteAll}">Delete All</a>
+<a th:class="btn-a" th:href="@{/car/addAll}">Add All</a>
+<a th:class="btn-a" th:href="@{/car/add}">Add</a>
+
+<div th:if="${status==true}">
+    <p>Данные добавлены!</p>
+</div>
+
+<div th:if="${status!=true}">
+    <p>Данные не добавлены!</p>
+</div>
+
+<div th:if="${cars==null}">
+    <strong>Нет данных!</strong>
+
+</div>
 
 <div th:if="${cars!=null and cars.size()!=0}">
     <table border="2">

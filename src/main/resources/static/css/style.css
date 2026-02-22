@@ -1,0 +1,11 @@
+.btn-a{
+    border: 3px solid black;
+    text-decoration: none;
+    background-color: blue;
+    color: white;
+}
+
+.btn-a:hover{
+    background-color: aqua;
+    color: black;
+}

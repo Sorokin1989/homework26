@@ -6,9 +6,9 @@ import net.datafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/car")
@@ -33,11 +33,20 @@ public class CarController {
     }
 
     @GetMapping("/addAll")
-    public String addAll(){
+    public String addAll(Model model){
+        boolean isAdd=false;
         if (carRepository.count()==0){
             add_10_cars();
+            isAdd=true;
         }
-       return "";
+        model.addAttribute("status",isAdd);
+       return "pages/car/index";
+    }
+
+    @GetMapping("/deleteAll")
+    public String delete(Model model){
+        carRepository.deleteAll();
+        return "pages/car/index";
     }
 
     @GetMapping("/add")
@@ -45,6 +54,21 @@ public class CarController {
         model.addAttribute("title","Create page");
         model.addAttribute("car",new Car());
         return "pages/car/create";
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteById(@PathVariable Long id,Model model){
+        carRepository.deleteById(id);
+        return "pages/car/index";
+
+    }
+
+    @GetMapping("/edit/{id}")
+    public String updateById(@PathVariable Long id,Model model){
+        Optional<Car> findCar=carRepository.findById(id);
+        model.addAttribute("title","Update Page");
+        model.addAttribute("car",findCar.get());
+        return "pages/car/edit";
     }
 
 
