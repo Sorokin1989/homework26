@@ -20,10 +20,16 @@ public class CarController {
     @Autowired
     CarRepository carRepository;
 
+    @GetMapping("/hi")
+    public String test(Model model,String sortBy){
+        model.addAttribute("cars",carRepository.findAll());
+        return "pages/car/index";
+    }
+
     @PostMapping("/create")
     public String create(Model model,Car car){
         carRepository.save(car);
-        return "";
+        return "pages/car/index";
     }
 
     @GetMapping("/addAll")
@@ -52,10 +58,12 @@ public class CarController {
         String brand=faker.vehicle().make();
         String model=faker.vehicle().model();
         Integer year=faker.number().numberBetween(2000,2025);
+        String color= faker.color().name();
 
         car.setBrand(brand);
         car.setModel(model);
         car.setYear(year);
+        car.setColor(color);
 
         carRepository.save(car);
         }

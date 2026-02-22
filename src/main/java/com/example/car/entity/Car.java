@@ -1,7 +1,6 @@
 package com.example.car.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 
 @Entity
 @Table(name = "cars")
@@ -14,6 +13,7 @@ public class Car {
     private String brand;
     private String model;
     private Integer year;
+    private String color;
 
     public Car() {
     }
@@ -45,5 +45,13 @@ public class Car {
 
     public void setYear(Integer year) {
         this.year = year;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }
