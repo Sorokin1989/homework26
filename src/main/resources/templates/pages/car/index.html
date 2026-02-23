@@ -35,6 +35,7 @@
             <th>Model</th>
             <th>Year</th>
             <th>Color</th>
+            <th>Button</th>
         </tr>
         </thead>
 
@@ -45,6 +46,18 @@
             <td th:text="${car.getModel()}"></td>
             <td th:text="${car.getYear()}"></td>
             <td th:text="${car.getColor()}"></td>
+            <td>
+               <div class="container">
+
+                   <form onsubmit="return confirm('Вы уверены?')"
+th:action="@{/car/delete/{id}(id=${car.getId()})}" method="post">
+                       <input hidden name="_method" value="delete">
+                       <button type="submit" class="btn-a del btn-delete">Delete</button>
+                   </form>
+                   <a class="btn-a edit btn-update"
+                      th:href="@{/car/edit/{id}(id=${car.getId()})}">Edit</a>
+               </div>
+            </td>
         </tr>
         </tbody>
 

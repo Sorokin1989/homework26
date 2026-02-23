@@ -27,11 +27,45 @@ public class CarController {
         return "pages/car/index";
     }
 
+//    @PostMapping("/create")
+//    public String create(@ModelAttribute Car car) {
+//
+//        carRepository.save(car);
+//
+//        return "redirect:/car/hi";
+//    }
+
     @PostMapping("/create")
-    public String create(Model model, Car car) {
-        carRepository.save(car);
+    public String create(@RequestParam(required = false) Long id,
+                         @ModelAttribute Car car,
+                         RedirectAttributes redirectAttributes) {
+
+        if (id != null) {
+            car.setId(id);
+        }
+
+        if (car.getId() == null) {
+            Car savedCar = carRepository.save(car);
+            redirectAttributes.addFlashAttribute("message",
+                    "Машина создана с ID: " + savedCar.getId());
+        } else {
+            Car existingCar = carRepository.findById(car.getId())
+                    .orElseThrow(() -> new RuntimeException("Машина не найдена"));
+
+            existingCar.setBrand(car.getBrand());
+            existingCar.setModel(car.getModel());
+            existingCar.setYear(car.getYear());
+            existingCar.setColor(car.getColor());
+
+            Car updatedCar = carRepository.save(existingCar);
+            redirectAttributes.addFlashAttribute("message",
+                    "Машина обновлена! ID: " + updatedCar.getId());
+        }
+
         return "redirect:/car/hi";
     }
+
+
 
     @GetMapping("/addAll")
     public String addAll(RedirectAttributes redirectAttributes) {
@@ -83,6 +117,8 @@ public class CarController {
             String model = faker.vehicle().model();
             Integer year = faker.number().numberBetween(2000, 2025);
             String color = faker.color().name();
+
+
 
             car.setBrand(brand);
             car.setModel(model);

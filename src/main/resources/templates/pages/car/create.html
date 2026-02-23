@@ -1,10 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--      xmlns:layout="http://www.ultra.net.nz/thymeleaf/layout"-->
+<!--      layout:decorate="~{layouts/main}">-->
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="${title}">Title</title>
 </head>
 <body>
 
+<!--<div layout:fragment="content">-->
+
+    <h1 th:text="${title}"></h1>
+    <form th:action="@{/car/create}" method="post" th:object="${car}">
+
+        <input type="hidden" th:field="*{id}">
+        Бренд :  <input type="text" th:field="*{brand}"><br>
+        Модель : <input type="text" th:field="*{model}"><br>
+        Год :    <input type="number" th:field="*{year}"><br>
+        Цвет :   <input type="text" th:field="*{color}"><br>
+
+        <button type="submit">Create</button>
+
+    </form>
+
+    <a th:href="@{/car/hi}">Cancel</a>
+
+
+
+
+<!--</div>-->
 </body>
 </html>

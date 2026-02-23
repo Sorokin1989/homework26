@@ -1,11 +1,35 @@
-.btn-a{
+.btn-a {
     border: 3px solid black;
     text-decoration: none;
     background-color: blue;
     color: white;
 }
 
-.btn-a:hover{
+* {
+    user-select: none;
+}
+
+.btn-a:hover {
     background-color: aqua;
     color: black;
+}
+
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit {
+    background-color: orange ;
+    color: black;
+    margin: 5px;
+
+}
+
+.del {
+    background-color: red ;
+    color: black;
+    margin: 5px;
 }

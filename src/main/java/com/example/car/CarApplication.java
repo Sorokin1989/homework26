@@ -16,4 +16,5 @@ public class CarApplication {
     Faker faker(){
         return new Faker();
     }
+
 }
