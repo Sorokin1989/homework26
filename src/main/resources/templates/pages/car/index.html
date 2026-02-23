@@ -20,10 +20,11 @@
     <p>Данные не добавлены!</p>
 </div>
 
-<div th:if="${cars==null}">
+<div th:if="${cars==null and status!=true}">
     <strong>Нет данных!</strong>
 
 </div>
+
 
 <div th:if="${cars!=null and cars.size()!=0}">
     <table border="2">
