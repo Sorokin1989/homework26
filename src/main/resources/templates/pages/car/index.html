@@ -1,69 +1,71 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultra.net.nz/thymeleaf/layout"
+layout:decorate="~{layouts/main}">
 <body>
 
-<a th:class="btn-a" th:href="@{/car/deleteAll}">Delete All</a>
-<a th:class="btn-a" th:href="@{/car/addAll}">Add All</a>
-<a th:class="btn-a" th:href="@{/car/add}">Add</a>
+<main layout:fragment="content">
 
-<div th:if="${status==true}">
-    <p>Данные добавлены!</p>
-</div>
+    <a th:class="btn-a" th:href="@{/car/deleteAll}">Delete All</a>
+    <a th:class="btn-a" th:href="@{/car/addAll}">Add All</a>
+    <a th:class="btn-a" th:href="@{/car/add}">Add</a>
 
-<div th:if="${status!=true}">
-    <p>Данные не добавлены!</p>
-</div>
+    <div th:if="${status==true}">
+        <p>Данные добавлены!</p>
+    </div>
 
-<div th:if="${cars==null and status!=true}">
-    <strong>Нет данных!</strong>
+    <div th:if="${status!=true}">
+        <p>Данные не добавлены!</p>
+    </div>
 
-</div>
+    <div th:if="${cars==null and status!=true}">
+        <strong>Нет данных!</strong>
 
-
-<div th:if="${cars!=null and cars.size()!=0}">
-    <table border="2">
-        <thead>
-        <tr>
-            <th>id</th>
-            <th>Brand</th>
-            <th>Model</th>
-            <th>Year</th>
-            <th>Color</th>
-            <th>Button</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <tr th:each="car: ${cars}">
-            <td th:text="${car.getId()}"></td>
-            <td th:text="${car.getBrand()}"></td>
-            <td th:text="${car.getModel()}"></td>
-            <td th:text="${car.getYear()}"></td>
-            <td th:text="${car.getColor()}"></td>
-            <td>
-               <div class="container">
-
-                   <form onsubmit="return confirm('Вы уверены?')"
-th:action="@{/car/delete/{id}(id=${car.getId()})}" method="post">
-                       <input hidden name="_method" value="delete">
-                       <button type="submit" class="btn-a del btn-delete">Delete</button>
-                   </form>
-                   <a class="btn-a edit btn-update"
-                      th:href="@{/car/edit/{id}(id=${car.getId()})}">Edit</a>
-               </div>
-            </td>
-        </tr>
-        </tbody>
-
-    </table>
+    </div>
 
 
-</div>
+    <div th:if="${cars!=null and cars.size()!=0}">
+        <table border="2">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>Year</th>
+                <th>Color</th>
+                <th>Button</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="car: ${cars}">
+                <td th:text="${car.getId()}"></td>
+                <td th:text="${car.getBrand()}"></td>
+                <td th:text="${car.getModel()}"></td>
+                <td th:text="${car.getYear()}"></td>
+                <td th:text="${car.getColor()}"></td>
+                <td>
+                    <div class="container">
+
+                        <form onsubmit="return confirm('Вы уверены?')"
+                              th:action="@{/car/delete/{id}(id=${car.getId()})}" method="post">
+                            <input hidden name="_method" value="delete">
+                            <button type="submit" class="btn-a del btn-delete">Delete</button>
+                        </form>
+                        <a class="btn-a edit btn-update"
+                           th:href="@{/car/edit/{id}(id=${car.getId()})}">Edit</a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+
+        </table>
+
+
+    </div>
+    <script th:src="@{/js/script.js}"> </script>
+</main>
+
+
 </body>
 </html>
