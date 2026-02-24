@@ -29,10 +29,15 @@ public class CarController {
 
     @PostMapping("/create")
     public String create(@ModelAttribute Car car) {
-
-        carRepository.save(car);
-
+if (car.getBrand()!=null && !car.getBrand().isEmpty()&&
+        car.getModel()!=null && !car.getModel().isEmpty()&&
+        (car.getYear()>1900 && car.getYear()<= 2026)&&
+        car.getColor()!=null && !car.getColor().isEmpty()
+        ){
+    carRepository.save(car);
         return "redirect:/car/hi";
+}
+else return "pages/car/info";
     }
 
 

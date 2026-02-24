@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultra.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main}">
+
+<body>
+<main layout:fragment="content">
+<h2>Введены некорректные данные! Повторите ввод!</h2>
+    <a th:href="@{/car/hi}">Cancel</a>
+</main>
+
+</body>
+</html>

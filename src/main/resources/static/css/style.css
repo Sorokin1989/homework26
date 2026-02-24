@@ -32,4 +32,25 @@
     background-color: red ;
     color: black;
     margin: 5px;
+    cursor: pointer;
+}
+
+th:hover{
+    cursor: pointer;
+    background-color: blueviolet;
+
+}
+
+h1{
+    color: green;
+    background-color: aqua;
+    font-size: 50px;
+}
+
+a{
+    cursor: pointer;
+
+    background-color: lightgray;
+    color: black;
+
 }
